@@ -2004,6 +2004,11 @@ PrefabInstance:
       propertyPath: DialogContent
       value: 
       objectReference: {fileID: 4900000, guid: b962abefd30f949e48b8a1a77053a507, type: 3}
+    - target: {fileID: 1989820142022220760, guid: f0d19de0a109995449a617802588d55d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2329844148263658148, guid: f0d19de0a109995449a617802588d55d,
         type: 3}
       propertyPath: m_AnchorMax.y
