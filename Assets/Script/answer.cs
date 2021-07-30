@@ -17,6 +17,8 @@ public class answer : MonoBehaviour
     [Header("判断题")]
     public Button right;
     public Button wrong;
+    public Button next;
+    
 
 
 
@@ -27,7 +29,9 @@ public class answer : MonoBehaviour
     public string rightAnswer;
     public bool isEndquestion = false;
     public bool isquest;
-
+    public bool finish = false;
+    private Text txt;
+    public bool isover;
 
     [Header("题库")]
     public int index;
@@ -39,6 +43,7 @@ public class answer : MonoBehaviour
     void Awake()
     {
         GetTextContent(Question);
+         txt = next.transform.Find("Text").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -65,10 +70,17 @@ public class answer : MonoBehaviour
                 case "answer":
                     index++;
                     rightAnswer = textList[index];
+                    index++;
                     break;
                 case "end":
+                    Debug.Log("enter the end");
                     isEndquestion = true;
                     break;
+                case "over":
+                    finish = true;
+                    txt.text = "完成试卷";
+                    break;
+
             }
             if (isjudge && !isEndquestion && isquest)//如果是判断题
             {
@@ -130,6 +142,7 @@ public class answer : MonoBehaviour
     public void chooseRightAnswer()
     {
         point = point + 10;
+        choose = "";
     }
     public void ChooseA()
     {
@@ -137,11 +150,11 @@ public class answer : MonoBehaviour
         choose = "A";
         Debug.Log(choose);
         Debug.Log(rightAnswer);
-        if (choose.Trim().Equals(rightAnswer))
-        {
-            Debug.Log("Enter right answer");
-            chooseRightAnswer();
-        }
+        //if (choose.Trim().Equals(rightAnswer))
+        //{
+        //    Debug.Log("Enter right answer");
+        //    chooseRightAnswer();
+        //}
     }
     public void ChooseB()
     {
@@ -149,15 +162,36 @@ public class answer : MonoBehaviour
         choose = "B";
         Debug.Log(choose);
         Debug.Log(rightAnswer);
-        if (choose.Trim().Equals(rightAnswer))
+        
+    }
+    public void nextQuestion()
+    {
+        if (isover)
+        {
+            gameObject.SetActive(false);
+        }
+        if (choose.Trim().Equals(rightAnswer) && !finish)
         {
             Debug.Log("Enter right answer");
             chooseRightAnswer();
         }
-    }
-    public void nextQuestion()
-    {
         Debug.Log(point);
         isEndquestion = false;
+        index++;
+        if (finish)
+        {
+            if (point >= 60)
+            {
+                questContent.text = "恭喜你获得了" + point + "分";
+            }
+            else
+            {
+                questContent.text = "很遗憾你只获得了" + point + "分，没有通过测试";
+            }
+            right.gameObject.SetActive(false);
+            wrong.gameObject.SetActive(false);
+            isover = true;
+        }
+        
     }
 }
