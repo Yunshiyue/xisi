@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class answer : MonoBehaviour
 {
 
+    public GameObject menu;
+    public GameObject insight;
+
     [Header("选择题")]
     //public Button choiceA;
     //public Button choiceB;
@@ -51,6 +54,8 @@ public class answer : MonoBehaviour
     {
         if (!isEndquestion && index<textList.Count)
         {
+            menu.SetActive(false);
+            insight.SetActive(false);
             
             if (isnumeric(textList[index]))
             {
